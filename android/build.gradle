@@ -1,0 +1,30 @@
+buildscript {
+    repositories {
+        google()  // Add the Google repository to fetch Firebase & AdMob services
+        mavenCentral()
+    }
+    dependencies {
+        // Classpath for Firebase & AdMob
+        classpath 'com.google.gms:google-services:4.3.15'  // Make sure this is in the project-level build.gradle
+//        implementation 'com.stripe:stripe-android:20.18.0' // Update as needed
+//        implementation 'com.razorpay:checkout:1.6.13' // Update as needed
+    }
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
